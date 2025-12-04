@@ -1,5 +1,6 @@
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
+require('dotenv').config();
 
 
 const comparePassword = async (password, userPassword) => {
@@ -8,7 +9,8 @@ const comparePassword = async (password, userPassword) => {
   return result
 }
 const createAccessToken = async (user) => {
-  const tokenExpiry = process.env.TOKEN_EXPIRY
+  const tokenExpiry = process.env.JWT_TOKEN_EXPIRY
+  const secretKey = process.env.JWT_SECRET_KEY
   const accessToken = jwt.sign(
     {
       userId: user.userId,

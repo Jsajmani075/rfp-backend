@@ -2,6 +2,7 @@
 
 const { PROPOSAL_STATUS_CONSTANTS } = require('../src/utils/public.constants');
 
+
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
@@ -12,39 +13,40 @@ module.exports = {
         autoIncrement: true,
         primaryKey: true
       },
-      rfpId: {
+      rfp_id: {
         type: Sequelize.INTEGER,
         allowNull: false
       },
-      vendorId: {
+      vendor_id: {
         type: Sequelize.INTEGER,
         allowNull: false
       },
-      aiResponse: {
+      ai_response: {
         type: Sequelize.JSONB,
         allowNull: true
       },
-      emailBodyContent: {
+      email_body_content: {
         type: Sequelize.JSONB,
         allowNull: false
       },
-      aiContent: {
+      ai_content: {
         type: Sequelize.JSONB,
-        allowNull: fasle
+        allowNull: true
       },
       status: {
         type: Sequelize.ENUM(Object.values(PROPOSAL_STATUS_CONSTANTS)),
-        allowNull: fasle
+        allowNull: false,
+        defaultValue: PROPOSAL_STATUS_CONSTANTS.PENDING
       },
-      aiRank: {
+      ai_rank: {
         type: Sequelize.INTEGER,
-        allowNull: fasle
+        allowNull: true
       },
-      createdAt: {
+      created_at: {
         allowNull: false,
         type: Sequelize.DATE
       },
-      updatedAt: {
+      updated_at: {
         allowNull: false,
         type: Sequelize.DATE
       }

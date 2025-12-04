@@ -4,18 +4,18 @@ const {
 } = require('sequelize');
 const { VENDOR_TYPE_CONSTANTS } = require('../src/utils/public.constants');
 module.exports = (sequelize, DataTypes) => {
-  const User = sequelize.define('Vendor', {
+  const Vendor = sequelize.define('Vendor', {
     id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       autoIncrement: true,
       primaryKey: true
     },
-    VendorName: {
+    vendorName: {
       type: DataTypes.STRING,
       allowNull: false
     },
-    VendorEmail: {
+    vendorEmail: {
       type: DataTypes.STRING,
       allowNull: false
     },
@@ -25,7 +25,8 @@ module.exports = (sequelize, DataTypes) => {
     },
     isActive: {
       type: DataTypes.BOOLEAN,
-      allowNull: false
+      allowNull: false,
+      defaultValue: true
     },
     tags: {
       type: DataTypes.STRING,
@@ -33,9 +34,10 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {
     sequelize,
-    tableName: 'users',
+    tableName: 'Vendors',
     schema: 'public',
     timestamps: true,
     underscored: true,
   })
+  return Vendor
 };

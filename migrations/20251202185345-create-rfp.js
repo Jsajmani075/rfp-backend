@@ -1,6 +1,6 @@
 'use strict';
 
-const { RPF_STATUS_CONSTANTS } = require('../src/utils/public.constants');
+const { RPF_STATUS_CONSTANTS, RPF_TYPE_CONSTANTS } = require('../src/utils/public.constants');
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
@@ -12,7 +12,7 @@ module.exports = {
         autoIncrement: true,
         primaryKey: true
       },
-      userText: {
+      user_text: {
         type: Sequelize.TEXT,
         allowNull: false
       },
@@ -20,7 +20,7 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false
       },
-      aiResponse: {
+      ai_response: {
         type: Sequelize.JSONB,
         allowNull: true
       },
@@ -28,25 +28,30 @@ module.exports = {
         type: Sequelize.ENUM(Object.values(RPF_STATUS_CONSTANTS)),
         allowNull: false
       },
-      budgetTotal: {
+      budget_total: {
         type: Sequelize.DOUBLE,
-        allowNull: fasle
+        allowNull: true
       },
-      deliveryTimelineDays: {
+      delivery_timeline_days: {
         type: Sequelize.INTEGER,
-        allowNull: fasle
+        allowNull: true
       },
-      paymentTerms: {
+      payment_terms: {
         type: Sequelize.STRING,
-        allowNull: fasle
+        allowNull: true
       },
-      createdAt: {
+      created_at: {
         allowNull: false,
         type: Sequelize.DATE
       },
-      updatedAt: {
+      updated_at: {
         allowNull: false,
         type: Sequelize.DATE
+      },
+      rpf_type: {
+        type: DataTypes.ENUM(Object.values(RPF_TYPE_CONSTANTS)),
+        allowNull: false,
+        defaultValue: RPF_TYPE_CONSTANTS.SOFTWARE
       }
     });
   },

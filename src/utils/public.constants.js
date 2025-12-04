@@ -9,9 +9,14 @@ RPF_STATUS_CONSTANTS = {
     SOFTWARE: 'software',
     SERVICE: 'service'
   },
+  RPF_TYPE_CONSTANTS = {
+    HARDWARE: 'hardware',
+    SOFTWARE: 'software',
+    SERVICE: 'service'
+  },
   PROPOSAL_STATUS_CONSTANTS = {
     PENDING: 'pending',
     SUCCESS: 'success',
     REJECTED: 'rejected'
   }
-module.exports = { RPF_STATUS_CONSTANTS, VENDOR_TYPE_CONSTANTS, PROPOSAL_STATUS_CONSTANTS }
+module.exports = { RPF_STATUS_CONSTANTS, VENDOR_TYPE_CONSTANTS, PROPOSAL_STATUS_CONSTANTS, RPF_TYPE_CONSTANTS }

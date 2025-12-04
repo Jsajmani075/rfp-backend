@@ -4,7 +4,7 @@ const {
 } = require('sequelize');
 const { RPF_STATUS_CONSTANTS, PROPOSAL_STATUS_CONSTANTS } = require('../src/utils/public.constants');
 module.exports = (sequelize, DataTypes) => {
-  const User = sequelize.define('Proposal', {
+  const Proposal = sequelize.define('Proposal', {
     id: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -25,25 +25,27 @@ module.exports = (sequelize, DataTypes) => {
     },
     emailBodyContent: {
       type: DataTypes.JSONB,
-      allowNull: false
+      allowNull: true
     },
     aiContent: {
       type: DataTypes.JSONB,
-      allowNull: fasle
+      allowNull: true
     },
     status: {
       type: DataTypes.ENUM(Object.values(PROPOSAL_STATUS_CONSTANTS)),
-      allowNull: fasle
+      allowNull: false,
+      defaultValue: PROPOSAL_STATUS_CONSTANTS.PENDING
     },
     aiRank: {
       type: DataTypes.INTEGER,
-      allowNull: fasle
+      allowNull: true
     }
   }, {
     sequelize,
-    tableName: 'proposals',
+    tableName: 'Proposals',
     schema: 'public',
     timestamps: true,
     underscored: true,
   })
+  return Proposal
 };

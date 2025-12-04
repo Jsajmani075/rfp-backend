@@ -12,11 +12,11 @@ module.exports = {
         autoIncrement: true,
         primaryKey: true
       },
-      VendorName: {
+      vendor_name: {
         type: Sequelize.STRING,
         allowNull: false
       },
-      VendorEmail: {
+      vendor_email: {
         type: Sequelize.STRING,
         allowNull: false
       },
@@ -24,19 +24,20 @@ module.exports = {
         type: Sequelize.ENUM(Object.values(VENDOR_TYPE_CONSTANTS)),
         allowNull: false
       },
-      isActive: {
+      is_active: {
         type: Sequelize.BOOLEAN,
-        allowNull: false
+        allowNull: false,
+        defaultValue: true
       },
       tags: {
         type: Sequelize.STRING,
         allowNull: true
       },
-      createdAt: {
+      created_at: {
         allowNull: false,
         type: Sequelize.DATE
       },
-      updatedAt: {
+      updated_at: {
         allowNull: false,
         type: Sequelize.DATE
       }
