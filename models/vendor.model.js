@@ -30,7 +30,7 @@ module.exports = (sequelize, DataTypes) => {
     underscored: true,
   })
   Vendor.associate = function (model) {
-    Vendor.hasMany(model.Proposal, { foreignKey: 'vendorId' });
+    Vendor.hasMany(model.Proposal, { foreignKey: 'vendor_id' });
 
   }
   return Vendor

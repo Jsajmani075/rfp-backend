@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false
     },
-    vendorId: {
+    vendor_id: {
       type: DataTypes.INTEGER,
       allowNull: false
     },
@@ -49,7 +49,7 @@ module.exports = (sequelize, DataTypes) => {
   })
   Proposal.associate = function (model) {
     Proposal.belongsTo(model.Rpf, { foreignKey: 'rpfId' });
-    Proposal.belongsTo(model.Vendor, { foreignKey: 'vendorId' });
+    Proposal.belongsTo(model.Vendor, { foreignKey: 'vendor_id' });
   }
   return Proposal
 };

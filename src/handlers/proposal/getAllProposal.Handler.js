@@ -59,6 +59,7 @@ const getAllProposalHandler = async (request) => {
     pageNo: Number(query.pageNo) || 1
   }
   await setCache(cacheKeys, JSON.stringify(response))
+  // await deleteCache(`${CACHE_KEYS.PROPOSALS}_*`)
   return {
     success: true,
     response

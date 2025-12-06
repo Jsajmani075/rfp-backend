@@ -31,7 +31,7 @@ const getVendorProposal = async (req) => {
   checkRpf.status = RPF_STATUS_CONSTANTS.VENDOR_PROPOSAL
   await Promise.all([
     db.Proposal.create({
-      vendorId: checkVendor.id,
+      vendor_id: checkVendor.id,
       rpfId: rpfId,
       emailBodyContent: message,
       status: PROPOSAL_STATUS_CONSTANTS.VENDOR_PROPOSAL

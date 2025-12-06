@@ -20,7 +20,7 @@ const sendServiceEmail = async (toEmail, data) => {
       <h2 style="color:#1E88E5;">RPF #${rpfId} – Requirement Details</h2>
 
       <p>Hello,</p>
-      <p>Please find below the requirement details shared by the user. Kindly review them and share your proposal for this RPF.</p>
+      <p>Please find below the requirement details shared by the user. Kindly review them and share your proposal for this RPF.make sure to add rpf id in subject without this we can't recommend you</p>
 
       <table style="border-collapse: collapse; width: 100%; margin-top: 15px;">
         <tr>
