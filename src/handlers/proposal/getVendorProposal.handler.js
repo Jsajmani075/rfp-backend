@@ -22,7 +22,12 @@ const getVendorProposal = async (req) => {
       attributes: ["id", 'status']
     }),
   ])
-
+  if (!checkVendor) {
+    return { success: true, message: 'no vendor found' }
+  }
+  if (!checkRpf) {
+    return { success: true, message: 'no rpf found' }
+  }
   checkRpf.status = RPF_STATUS_CONSTANTS.VENDOR_PROPOSAL
   await Promise.all([
     db.Proposal.create({
