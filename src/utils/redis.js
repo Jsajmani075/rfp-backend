@@ -1,14 +1,14 @@
 const Redis = require('ioredis')
 require('dotenv').config();
 
-const connectionOptions = {
-  host: process.env.REDIS_HOST,
-  port: process.env.REDIS_PORT,
-  password: process.env.REDIS_PASSWORD
+// const connectionOptions = {
+//   host: process.env.REDIS_HOST,
+//   port: process.env.REDIS_PORT,
+//   password: process.env.REDIS_PASSWORD
 
-}
+// }
 
-const client = new Redis(connectionOptions)
+const client = new Redis(process.env.REDIS_URL)
 
 const getCache = async (key) => {
   const data = await client.get(key)
