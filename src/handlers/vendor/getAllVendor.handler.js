@@ -1,7 +1,7 @@
 const db = require("../../../models")
 const ApiHelper = require("../../utils/api.utils")
 const { CACHE_KEYS } = require("../../utils/public.constants")
-const { getCache, setCache, } = require("../../utils/redis")
+const { getCache, setCache, deleteByPattern, } = require("../../utils/redis")
 
 const getAllVendorHandler = async (request) => {
   const { body, query, params } = request
@@ -27,7 +27,6 @@ const getAllVendorHandler = async (request) => {
     limit,
     vendorData
   }
-
   await setCache(cacheKey, JSON.stringify(response))
   return { success: true, response }
 }

@@ -5,6 +5,7 @@ const cors = require('cors');
 const vendorRoutes = require('./src/routes/vendor.routes');
 const rpfRoutes = require('./src/routes/Rpf.routes');
 const proposalRoutes = require('./src/routes/proposal.routes');
+const { client } = require('./src/utils/redis');
 const app = express()
 
 const PORT = process.env.PORT || 8000
@@ -12,6 +13,10 @@ app.use(express.json());
 
 app.get('/health', (req, res) => {
   res.json({ status: 'ok' });
+});
+app.get("/flush-redis", async (req, res) => {
+  await client.call("FLUSHALL");
+  return res.send("Redis database cleared!");
 });
 app.use(cors({
   origin: process.env.ALLOWED_ORIGINS,
