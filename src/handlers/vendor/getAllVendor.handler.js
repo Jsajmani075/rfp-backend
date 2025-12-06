@@ -9,15 +9,16 @@ const getAllVendorHandler = async (request) => {
   const cacheKey = `${CACHE_KEYS.VENDOR}_${pageNo}_${offset}`
   const vendorCache = await getCache(cacheKey)
 
-  if (vendorCache) {
-    const parsedData = JSON.parse(vendorCache);
-    return { success: true, response: parsedData };
-  }
+  // if (vendorCache) {
+  //   const parsedData = JSON.parse(vendorCache);
+  //   return { success: true, response: parsedData };
+  // }
 
   const vendorData = await db.Vendor.findAndCountAll({
     attributes: ['id', 'vendorName',
       'vendorEmail',
       'tags'],
+    distinct: true,
     limit,
     offset
   })
@@ -27,7 +28,8 @@ const getAllVendorHandler = async (request) => {
     limit,
     vendorData
   }
-  await setCache(cacheKey, JSON.stringify(response))
+  await deleteByPattern(`${CACHE_KEYS.VENDOR}_*`)
+  // await setCache(cacheKey, JSON.stringify(response))
   return { success: true, response }
 }
 module.exports = getAllVendorHandler

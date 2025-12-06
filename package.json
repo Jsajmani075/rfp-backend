@@ -22,13 +22,13 @@
   "name": "sde-1-assignment",
   "version": "1.0.0",
   "main": "index.js",
-  "scripts": {
-    "sequelize": "sequelize-cli",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start:dev": "nodemon index.js",
-    "setup":"npm run sequelize db:drop && sequelize db:create && sequelize db:migrate && sequelize db:seed:all",
-    "start":"npm run sequelize db:migrate && sequelize db:seed:all"
-  },
+"scripts": {
+  "sequelize": "sequelize-cli",
+  "start:dev": "nodemon index.js",
+  "start": "node index.js",
+  "setup": "npm run sequelize db:drop && npm run sequelize db:create && npm run sequelize db:migrate && npm run sequelize db:seed:all",
+  "postinstall": "npx sequelize-cli db:migrate --env production"
+},
   "keywords": [],
   "author": "",
   "license": "ISC",
