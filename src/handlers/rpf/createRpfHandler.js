@@ -1,9 +1,11 @@
 const db = require("../../../models");
 const axios = require("axios");
+const { deleteByPattern } = require("../../utils/redis");
+const { CACHE_KEYS } = require("../../utils/public.constants");
 require("dotenv").config();
 
 const createRpfHandler = async (request) => {
-  const { title, userText } = request.body;
+  const { userText } = request.body;
 
   const prompt = `
 You are an RFP (Request For Proposal) structuring assistant.
@@ -39,7 +41,7 @@ ${userText}
     ]
   };
 
-  const url = `https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key=${process.env.GEMINI_API_KEY}`;
+  const url = `${process.env.GEMINI_BASE_URL}?key=${process.env.GEMINI_API_KEY}`;
 
   try {
     const response = await axios.post(url, payload, {
@@ -58,22 +60,21 @@ ${userText}
     try {
       aiResponse = JSON.parse(text);
     } catch (err) {
-      console.error("JSON PARSE FAILED — RAW TEXT:", text);
       throw new Error("AI returned invalid JSON");
     }
 
     console.log("Parsed AI Response:", aiResponse);
 
-    await db.Rpf.create({
-      title,
+    await Promise.all([db.Rpf.create({
       userText,
       aiResponse,
       budgetTotal:
         typeof aiResponse.budget === "string"
           ? aiResponse.budget
           : aiResponse.budget?.max || null
-    });
-
+    }),
+    deleteByPattern(`${CACHE_KEYS.RPF}_*`)
+    ])
     return {
       success: true,
       message: "Your RPF is created successfully"

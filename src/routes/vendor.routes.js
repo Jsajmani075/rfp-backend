@@ -1,11 +1,12 @@
 const express = require('express')
 const vendorController = require('../controllers/vendor.controller')
-const isAdminAuthenticated = require('../middlewares/isAdminAuthenticated')
+const requestValidationMiddleware = require('../middlewares/request.validation.middleware')
+const getVendorDetailSchema = require('../validationSchema/vendor/getVendorDetail.schema')
+const noValidation = require('../validationSchema/novalidation.schema')
 const vendorRoutes = express.Router()
 
-vendorRoutes.get('/', isAdminAuthenticated, vendorController.getAllVendor)
-vendorRoutes.get('/:id', isAdminAuthenticated, vendorController.getVendorDetail)
-vendorRoutes.put('/', isAdminAuthenticated, vendorController.updateVendor)
-vendorRoutes.post('/', isAdminAuthenticated, vendorController.createVendor)
+vendorRoutes.get('/', requestValidationMiddleware(noValidation), vendorController.getAllVendor)
+vendorRoutes.get('/:id', requestValidationMiddleware(getVendorDetailSchema), vendorController.getVendorDetail)
+
 
 module.exports = vendorRoutes 

@@ -6,14 +6,14 @@ const { PROPOSAL_STATUS_CONSTANTS } = require('../src/utils/public.constants');
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Proposals', {
+    await queryInterface.createTable('proposals', {
       id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         autoIncrement: true,
         primaryKey: true
       },
-      rfp_id: {
+      rpf_id: {
         type: Sequelize.INTEGER,
         allowNull: false
       },
@@ -53,6 +53,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Proposals');
+    await queryInterface.dropTable('proposals');
   }
 };

@@ -2,7 +2,7 @@
 const {
   Model
 } = require('sequelize');
-const { RPF_STATUS_CONSTANTS, PROPOSAL_STATUS_CONSTANTS } = require('../src/utils/public.constants');
+const { PROPOSAL_STATUS_CONSTANTS } = require('../src/utils/public.constants');
 module.exports = (sequelize, DataTypes) => {
   const Proposal = sequelize.define('Proposal', {
     id: {
@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
       autoIncrement: true,
       primaryKey: true
     },
-    rfpId: {
+    rpfId: {
       type: DataTypes.INTEGER,
       allowNull: false
     },
@@ -42,10 +42,14 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {
     sequelize,
-    tableName: 'Proposals',
+    tableName: 'proposals',
     schema: 'public',
     timestamps: true,
     underscored: true,
   })
+  Proposal.associate = function (model) {
+    Proposal.belongsTo(model.Rpf, { foreignKey: 'rpfId' });
+    Proposal.belongsTo(model.Vendor, { foreignKey: 'vendorId' });
+  }
   return Proposal
 };

@@ -1,11 +1,9 @@
 'use strict';
 
-const { RPF_STATUS_CONSTANTS, RPF_TYPE_CONSTANTS } = require('../src/utils/public.constants');
-
-/** @type {import('sequelize-cli').Migration} */
+const { RPF_STATUS_CONSTANTS } = require('../src/utils/public.constants');
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Rfps', {
+    await queryInterface.createTable('rpfs', {
       id: {
         type: Sequelize.INTEGER,
         allowNull: false,
@@ -16,20 +14,17 @@ module.exports = {
         type: Sequelize.TEXT,
         allowNull: false
       },
-      title: {
-        type: Sequelize.STRING,
-        allowNull: false
-      },
       ai_response: {
         type: Sequelize.JSONB,
         allowNull: true
       },
       status: {
         type: Sequelize.ENUM(Object.values(RPF_STATUS_CONSTANTS)),
-        allowNull: false
+        allowNull: false,
+        defaultValue: RPF_STATUS_CONSTANTS.PENDING
       },
       budget_total: {
-        type: Sequelize.DOUBLE,
+        type: Sequelize.STRING,
         allowNull: true
       },
       delivery_timeline_days: {
@@ -48,14 +43,9 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       },
-      rpf_type: {
-        type: DataTypes.ENUM(Object.values(RPF_TYPE_CONSTANTS)),
-        allowNull: false,
-        defaultValue: RPF_TYPE_CONSTANTS.SOFTWARE
-      }
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Rfps');
+    await queryInterface.dropTable('rpfs');
   }
 };

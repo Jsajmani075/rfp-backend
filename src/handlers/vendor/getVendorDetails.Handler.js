@@ -10,8 +10,6 @@ const getVendorDetailsHandler = async (request) => {
     where: { id },
     attributes: ['id', 'vendorName',
       'vendorEmail',
-      'type',
-      'isActive',
       'tags'],
   })
   if (!vendorData) throw new AppError(ERRORS.VENDOR_NOT_EXIST)

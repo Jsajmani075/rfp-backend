@@ -9,7 +9,6 @@ class ApiHelper {
   }
 
   static sendResponse({ req, res, next }, data) {
-    console.log(">>>>>>data line 9", data)
     try {
       if (data) {
         res.payload = { data, error: [] }
@@ -17,7 +16,7 @@ class ApiHelper {
         res.status(statusCode).json(res.payload)
       }
       else {
-        console.log(">>>>>>error in send response ")
+        console.log(">>>>>>error in send response<<<<<<<< ")
         return res.status(400).json({ success: false, message: "Empty response" })
 
       }

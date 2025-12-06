@@ -2,7 +2,7 @@
 const {
   Model
 } = require('sequelize');
-const { RPF_STATUS_CONSTANTS, RPF_TYPE_CONSTANTS } = require('../src/utils/public.constants');
+const { RPF_STATUS_CONSTANTS } = require('../src/utils/public.constants');
 module.exports = (sequelize, DataTypes) => {
   const Rpf = sequelize.define('Rpf', {
     id: {
@@ -15,10 +15,6 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.TEXT,
       allowNull: false
     },
-    title: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
     aiResponse: {
       type: DataTypes.JSONB,
       allowNull: true
@@ -29,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: RPF_STATUS_CONSTANTS.PENDING
     },
     budgetTotal: {
-      type: DataTypes.DOUBLE,
+      type: DataTypes.STRING,
       allowNull: true
     },
     deliveryTimelineDays: {
@@ -40,17 +36,15 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: true
     },
-    rpfType: {
-      type: DataTypes.ENUM(Object.values(RPF_TYPE_CONSTANTS)),
-      allowNull: false,
-      defaultValue: RPF_TYPE_CONSTANTS.SOFTWARE
-    }
   }, {
     sequelize,
-    tableName: 'Rfps',
+    tableName: 'rpfs',
     schema: 'public',
     timestamps: true,
     underscored: true,
   })
+  Rpf.associate = function (model) {
+    Rpf.hasMany(model.Proposal, { foreignKey: 'rpfId' })
+  }
   return Rpf
 };

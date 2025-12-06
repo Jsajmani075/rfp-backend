@@ -16,14 +16,17 @@
     "pg-hstore": "^2.3.4",
     "redis": "^5.10.0",
     "sequelize": "^6.37.7",
-    "sib-api-v3-sdk": "^8.5.0"
+    "sib-api-v3-sdk": "^8.5.0",
+    "zod": "^4.1.13"
   },
   "name": "sde-1-assignment",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
+    "sequelize": "sequelize-cli",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start:dev": "nodemon index.js"
+    "start:dev": "nodemon index.js",
+    "setup":"npm run sequelize db:drop && sequelize db:create && sequelize db:migrate && sequelize db:seed:all"
   },
   "keywords": [],
   "author": "",

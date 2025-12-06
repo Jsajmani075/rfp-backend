@@ -1,23 +1,35 @@
-import Redis from 'ioredis'
+const Redis = require('ioredis')
 require('dotenv').config();
+
 const connectionOptions = {
-  host: PROCESS.env.REDIS_HOST,
-  port: PROCESS.env.REDIS_PORT,
-  password: PROCESS.env.REDIS_PASSWORD
+  host: process.env.REDIS_HOST,
+  port: process.env.REDIS_PORT,
+  password: process.env.REDIS_PASSWORD
 
 }
 
-export const client = new Redis(connectionOptions)
-export const getCache = async (key) => {
+const client = new Redis(connectionOptions)
+
+const getCache = async (key) => {
   const data = await client.get(key)
   return data
 }
-export const setCache = async (key, value, expire) => {
+
+const setCache = async (key, value, expire) => {
   if (expire) {
     await client.set(key, value, 'EX', expire)
   }
   else await client.set(key, value)
 }
-export const deleteCache = async (key) => {
+
+const deleteCache = async (key) => {
   await client.del(key)
 }
+const deleteByPattern = async (pattern) => {
+  const keys = await client.keys(pattern);
+  if (keys.length > 0) {
+    await client.del(...keys);
+  }
+};
+
+module.exports = { deleteCache, setCache, getCache, client, deleteByPattern }
